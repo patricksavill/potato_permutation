@@ -1,6 +1,15 @@
 import sys, os
+
+print("--------------------------------------------------------")
+print("          POTATO WHO? - A potato classifier")
+print("--------------------------------------------------------")
+print("")
+print("Importing things for you")
 import numpy as np
 from matplotlib import pyplot as plt
+
+# Stop tensorflow being noizy
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import tensorflow as tf
 
 try:
@@ -34,13 +43,15 @@ from downloader import Downloader
 
 CHECKPOINTS_DIR = "checkpoints"
 
+print("Let's try download a checkpoint pre-trained model")
 dl = Downloader(relative_path = CHECKPOINTS_DIR)
 dl.download()
 
 image_size = inception.inception_v4.default_image_size
 
+print("And we're away!")
 with tf.Graph().as_default():
-    url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Russet_potato_cultivar_with_sprouts.jpg/1920px-Russet_potato_cultivar_with_sprouts.jpg'
+    url = 'https://potatohack.files.wordpress.com/2016/12/d2be7-potato.gif?w=320&h=214&zoom=2'
     image_string = urllib.urlopen(url).read()
     image = tf.image.decode_jpeg(image_string, channels=3)
     processed_image = inception_preprocessing.preprocess_image(image, image_size, image_size, is_training=False)
@@ -62,6 +73,10 @@ with tf.Graph().as_default():
         sorted_inds = [i[0] for i in sorted(enumerate(-probabilities), key=lambda x:x[1])]
 
     names = imagenet.create_readable_names_for_imagenet_labels()
+    print("Here's what I found:")
+    print("")
     for i in range(5):
         index = sorted_inds[i]
         print('Probability %0.2f%% => [%s]' % (probabilities[index] * 100, names[index]))
+    
+    print("")

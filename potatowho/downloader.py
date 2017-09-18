@@ -17,6 +17,6 @@ class Downloader:
         filename = self.url.split('/')[-1]
 
         if Path(os.path.join(abs_path, filename)).is_file():
-            print("The checkpoint requested already exists")
+            print("The checkpoint exists already, don't worry about it")
         else:
             dataset_utils.download_and_uncompress_tarball(self.url, self.relative_path)
