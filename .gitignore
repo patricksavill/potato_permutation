@@ -1,0 +1,4 @@
+# Ignores for potatowho classifier
+/potatowho/__pycache__
+/potatowho/checkpoints/*
+/potatowho/.vscode
