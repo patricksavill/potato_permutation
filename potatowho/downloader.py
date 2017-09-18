@@ -1,6 +1,7 @@
-import sys
+import sys, os
 import util as dataset_utils
 import tensorflow as tf
+from pathlib import Path
 
 # Class for 
 class Downloader:
@@ -12,4 +13,10 @@ class Downloader:
         if not tf.gfile.Exists(self.relative_path):
             tf.gfile.MakeDirs(self.relative_path)
 
-        dataset_utils.download_and_uncompress_tarball(self.url, self.relative_path)
+        abs_path = os.path.join(os.getcwd(), self.relative_path)
+        filename = self.url.split('/')[-1]
+
+        if Path(os.path.join(abs_path, filename)).is_file():
+            print("The checkpoint requested already exists")
+        else:
+            dataset_utils.download_and_uncompress_tarball(self.url, self.relative_path)
