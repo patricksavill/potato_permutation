@@ -4,7 +4,7 @@ import tensorflow as tf
 
 # Class for 
 class Downloader:
-    def __init__(self, relative_path = "checkpoints", url = "http://download.tensorflow.org/models/inception_v1_2016_08_28.tar.gz"):
+    def __init__(self, relative_path = "checkpoints", url = "http://download.tensorflow.org/models/inception_v4_2016_09_09.tar.gz"):
         self.relative_path = relative_path
         self.url = url
         
